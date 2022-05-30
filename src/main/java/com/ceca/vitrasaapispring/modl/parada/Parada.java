@@ -6,9 +6,10 @@ import com.ceca.vitrasaapispring.modl.hora.Hora;
 public class Parada {
 
     private String nombre;
-    private String numero;
+    private Integer numero;
     private Autobus autobus;
-    private Hora horaDeLlegada;
+    private Hora hora;
+    private Integer minutosRestantes;
 
     public Parada() {
     }
@@ -21,12 +22,20 @@ public class Parada {
         this.nombre = nombre;
     }
 
-    public String getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+
+    public Integer getMinutosRestantes() {
+        return minutosRestantes;
+    }
+
+    public void setMinutosRestantes(Integer minutosRestantes) {
+        this.minutosRestantes = minutosRestantes;
     }
 
     public Autobus getAutobus() {
@@ -37,12 +46,12 @@ public class Parada {
         this.autobus = autobus;
     }
 
-    public Hora getHoraDeLlegada() {
-        return horaDeLlegada;
+    public Hora getHora() {
+        return hora;
     }
 
-    public void setHoraDeLlegada(Hora horaDeLlegada) {
-        this.horaDeLlegada = horaDeLlegada;
+    public void setHora(Hora hora) {
+        this.hora = hora;
     }
 
     @Override
@@ -51,7 +60,8 @@ public class Parada {
                 "nombre='" + nombre + '\'' +
                 ", numero='" + numero + '\'' +
                 ", autobus=" + autobus +
-                ", horaDeLlegada=" + horaDeLlegada +
+                ", horaDeLlegada=" + hora +
+                ", minutosRestantes=" + minutosRestantes +
                 '}';
     }
 }

@@ -1,100 +1,86 @@
 package com.ceca.vitrasaapispring.modl.scrapper;
 
-import com.ceca.vitrasaapispring.modl.hora.Hora;
-import com.ceca.vitrasaapispring.modl.parada.Parada;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Scrapper {
 
-    private int id;
-
-    private String url;
-
-    private Document contenido;
-
-    private String contenidoTexto;
-
     public Scrapper() {
     }
 
-    public Scrapper(String url, String contenidoTexto) {
-        this.url = url;
-        this.contenidoTexto = contenidoTexto;
-    }
-
-    public Scrapper(Document contenido) {
-        this.contenido = contenido;
-    }
-
-
-    //example
-    public Document getTitleDocument() throws IOException {
-        Document doc = Jsoup.connect("http://stackoverflow.com").userAgent("Mozilla").get();
-        for (Element e : doc.select("a.question-hyperlink")) {
-            System.out.println(e.attr("abs:href"));
-            System.out.println(e.text());
-            System.out.println();
+    private Document getDocSiamAvdaGalicia() { //Devuelve un documento con el codigo recuperado de la pagina
+        try {
+            return Jsoup.connect("http://infobus.vitrasa.es:8002/Default.aspx?parada=1600").get();
+        } catch (IOException ioEx) {
+            System.out.println("getParada stop url not found");
+            return new Document("");
         }
-        return doc;
     }
 
-    public Document getExample() throws IOException {
-        Document doc = Jsoup.connect("http://infobus.vitrasa.es:8002/Default.aspx?parada=1600").get();
-
-        System.out.println("Titulo ---->" + doc.title());
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Users\\c3s4r\\IdeaProjects\\vitrasaAPIspring\\src\\main\\resources\\templates\\salida.html"));
+    public List<String> getParadaData() { //Obtener datos de parada, devuelve una lista de Strings en orden con los valores
+        List<String> textoValores = new ArrayList<>();
         boolean oneView = false;
-        Elements tds = new Elements();
-        Hora hora = new Hora();
-        Parada parada= new Parada();
-        String nombreParada= "";
-        String horaCadena="";
-        Elements todo = doc.getAllElements();
+        Elements todo = getDocSiamAvdaGalicia().getAllElements();
         for (Element span : todo) {
-            if (span != null && oneView==false) {
-                tds = span.getElementsContainingOwnText("COIA");
-                try {
-                    horaCadena = span.getElementById("lblHora").text();
-                    hora.setHor(Integer.valueOf(horaCadena.substring(6,8)));
-                    hora.setMin(Integer.valueOf(horaCadena.substring(9,11)));
+            if (span != null && oneView == false) {
+                try {  // nombre y numero de la parada
+                    String nombreParada = span.getElementById("lblNombre").text();
+                    textoValores.add(nombreParada.substring(0, 16));
+                    textoValores.add(nombreParada.substring(18));
                 } catch (NullPointerException NuEx) {
-                    horaCadena = "Error en hora";
+                    System.out.println("ScrapperClass-getParadaData: Error al recuperar nombre de la parada");
                 }
-                try {
-                    nombreParada = span.getElementById("lblNombre").text();
-                    //0 15
-
-                    //18 20
-                    parada.setNombre(nombreParada.substring(0,16));
-                    parada.setNumero(nombreParada.substring(18));
-                    parada.toString();
-
-                    ;
-                } catch (NullPointerException NuEx){
-                    nombreParada = "Error en nombre de parada";
+                try {   // Cadena de hora (prescindible)
+                    String horaCadena = span.getElementById("lblHora").text();
+                    textoValores.add(horaCadena.substring(6, 8));
+                    textoValores.add(horaCadena.substring(9, 11));
+                } catch (NullPointerException NuEx) {
+                    System.out.println("ScrapperClass-getParadaData: Error al recuperar hora");
                 }
-                if (tds.size() != 0 || tds != null) {
-                    for (Element td : tds) {
-                        System.out.println(String.valueOf("Parada -> " + td.text()));
-                        if(hora.getMin()==0)
-                        System.out.println(hora.getHor()+":"+hora.getMin());
-                        System.out.println("Parada \n      Nombre: "+parada.getNombre()+" Numero: "+parada.getNumero());
-                        oneView= true;
+                try {  //Autobus Y Minutos
+                    int iBus = 0;
+                    for (Element elemento : span.getElementsByTag("td")) {
+                        if (iBus == 4) {
+                            textoValores.add(elemento.text().substring(13, 15));
+                            String tiempoRestante = "";
+                            if (elemento.text().substring(16, 17).compareTo("C") == 0) {
+                                tiempoRestante = elemento.text().substring(35, 37).replace(" ", "");
+                            } else if (elemento.text().substring(16, 17).compareTo("B") == 0) {
+                                tiempoRestante = elemento.text().substring(37, 39).replace(" ", "");
+                            }
+                            textoValores.add(tiempoRestante);
+                        }
+                        iBus++;
                     }
+                } catch (NullPointerException NuEx) {
+                    System.out.println("ScrapperClass-getParadaData: Error al recuperar nombre del autobus");
                 }
+                //Minutos restantes
+                oneView = true;
             }
         }
-
-        oos.writeObject(contenido);
-        oos.close();
-        return doc;
-
+        return textoValores;
     }
+
+
+//    public Document getDocMoov(){
+//        String url = "https://moovitapp.com/vigo-3841/lines/31/784701/3529152/es?customerId=4908&ref=2&poiType=line";
+//        try {
+//            return Jsoup.connect(url).get();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//
+//    public void viewDocMoov() {
+//
+//    }
 }

@@ -8,15 +8,15 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import java.io.IOException;
 
 @SpringBootApplication
-public class VitrasaApiSpringApplication extends SpringBootServletInitializer {
+public class AlexaSkillAppStarter extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
-        return application.sources(VitrasaApiSpringApplication.class);
+        return application.sources(AlexaSkillAppStarter.class);
     }
 
     public static void main(String[] args) throws IOException {
-        SpringApplication.run(VitrasaApiSpringApplication.class, args);
+        SpringApplication.run(AlexaSkillAppStarter.class, args);
     }
 
 }

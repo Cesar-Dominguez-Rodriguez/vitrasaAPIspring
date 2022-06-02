@@ -1,4 +1,4 @@
-package com.ceca.vitrasaapispring.modl.scrapper;
+package com.ceca.vitrasaapi.modl.scrapper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

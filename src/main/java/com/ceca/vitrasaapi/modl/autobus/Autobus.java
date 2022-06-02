@@ -1,4 +1,4 @@
-package com.ceca.vitrasaapispring.modl.autobus;
+package com.ceca.vitrasaapi.modl.autobus;
 
 public class Autobus {
 

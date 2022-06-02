@@ -1,9 +1,9 @@
-package com.ceca.vitrasaapispring.srvc.parada;
+package com.ceca.vitrasaapi.srvc.parada;
 
-import com.ceca.vitrasaapispring.modl.autobus.Autobus;
-import com.ceca.vitrasaapispring.modl.parada.Parada;
-import com.ceca.vitrasaapispring.modl.scrapper.Scrapper;
-import com.ceca.vitrasaapispring.modl.hora.Hora;
+import com.ceca.vitrasaapi.modl.autobus.Autobus;
+import com.ceca.vitrasaapi.modl.parada.Parada;
+import com.ceca.vitrasaapi.modl.scrapper.Scrapper;
+import com.ceca.vitrasaapi.modl.hora.Hora;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,7 +1,6 @@
-package com.ceca.vitrasaapispring.ctrl.parada;
+package com.ceca.vitrasaapi.ctrl.parada;
 
-import com.ceca.vitrasaapispring.modl.parada.Parada;
-import com.ceca.vitrasaapispring.srvc.parada.ParadaService;
+import com.ceca.vitrasaapi.srvc.parada.ParadaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
-
 
 @Controller
 public class ParadaCtrl {
@@ -23,5 +21,7 @@ public class ParadaCtrl {
                 .status(HttpStatus.OK)
                 .body(paradaService.crearParadaObject());
     }
+
+
 }
 

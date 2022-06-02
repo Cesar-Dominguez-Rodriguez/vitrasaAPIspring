@@ -1,4 +1,4 @@
-package com.ceca.vitrasaapispring.ctrl.hora;
+package com.ceca.vitrasaapi.ctrl.hora;
 
 import org.springframework.stereotype.Controller;
 

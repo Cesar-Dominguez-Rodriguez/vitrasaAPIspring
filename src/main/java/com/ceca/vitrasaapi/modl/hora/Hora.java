@@ -1,4 +1,4 @@
-package com.ceca.vitrasaapispring.modl.hora;
+package com.ceca.vitrasaapi.modl.hora;
 
 public class Hora {
     private Integer hor;

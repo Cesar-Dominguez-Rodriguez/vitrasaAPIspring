@@ -1,7 +1,7 @@
-package com.ceca.vitrasaapispring.modl.parada;
+package com.ceca.vitrasaapi.modl.parada;
 
-import com.ceca.vitrasaapispring.modl.autobus.Autobus;
-import com.ceca.vitrasaapispring.modl.hora.Hora;
+import com.ceca.vitrasaapi.modl.autobus.Autobus;
+import com.ceca.vitrasaapi.modl.hora.Hora;
 
 public class Parada {
 

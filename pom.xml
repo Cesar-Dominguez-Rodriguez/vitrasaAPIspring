@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>cam.ceca.alexa</groupId>
-    <artifactId>alexa-java-springboot-helloworld</artifactId>
+    <groupId>cam.ceca.vitrasaapi</groupId>
+    <artifactId>vitrasaAPIspring</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>vitrasaAPIspring</name>
@@ -52,24 +52,6 @@
             <artifactId>spring-data-commons</artifactId>
             <version>2.7.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.amazon.alexa</groupId>
-            <artifactId>ask-sdk</artifactId>
-            <version>2.29.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.13.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.13.1</version>
-        </dependency>
-
     </dependencies>
 
     <build>

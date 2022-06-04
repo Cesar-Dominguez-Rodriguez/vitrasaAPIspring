@@ -41,6 +41,7 @@ public class Scrapper {
                     String horaCadena = span.getElementById("lblHora").text();
                     textoValores.add(horaCadena.substring(6, 8));
                     textoValores.add(horaCadena.substring(9, 11));
+                    System.out.println("Comprobacion hora --> "+textoValores.toString());
                 } catch (NullPointerException NuEx) {
                     System.out.println("ScrapperClass-getParadaData: Error al recuperar hora");
                 }
@@ -48,14 +49,20 @@ public class Scrapper {
                     int iBus = 0;
                     for (Element elemento : span.getElementsByTag("td")) {
                         if (iBus == 4) {
+                            System.out.println(elemento.text().substring(13, 15));
                             textoValores.add(elemento.text().substring(13, 15));
                             String tiempoRestante = "";
-                            if (elemento.text().substring(16, 17).compareTo("C") == 0) {
-                                tiempoRestante = elemento.text().substring(35, 37).replace(" ", "");
-                            } else if (elemento.text().substring(16, 17).compareTo("B") == 0) {
-                                tiempoRestante = elemento.text().substring(37, 39).replace(" ", "");
+                            Elements elementosTR= elemento.select("[align*=right]");
+                            Boolean contTR= true;
+                            for(Element elementoTR: elementosTR ){
+                               if(contTR){
+                                System.out.println(elementoTR.text());
+                                tiempoRestante = elementoTR.text();
+                               }
+                                contTR= false;
                             }
                             textoValores.add(tiempoRestante);
+                            System.out.println(textoValores.toString());
                         }
                         iBus++;
                     }
@@ -63,24 +70,10 @@ public class Scrapper {
                     System.out.println("ScrapperClass-getParadaData: Error al recuperar nombre del autobus");
                 }
                 //Minutos restantes
+
                 oneView = true;
             }
         }
         return textoValores;
     }
-
-
-//    public Document getDocMoov(){
-//        String url = "https://moovitapp.com/vigo-3841/lines/31/784701/3529152/es?customerId=4908&ref=2&poiType=line";
-//        try {
-//            return Jsoup.connect(url).get();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//
-//    public void viewDocMoov() {
-//
-//    }
 }

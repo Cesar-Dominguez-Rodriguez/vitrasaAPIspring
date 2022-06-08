@@ -15,7 +15,7 @@ public class Scrapper {
     public Scrapper() {
     }
 
-    private Document getDocSiamAvdaGalicia() { //Devuelve un documento con el codigo recuperado de la pagina
+    private Document getDoc() { //Devuelve un documento con el codigo recuperado de la pagina
         try {
             return Jsoup.connect("http://infobus.vitrasa.es:8002/Default.aspx?parada=1600").get();
         } catch (IOException ioEx) {
@@ -27,7 +27,7 @@ public class Scrapper {
     public List<String> getParadaData() { //Obtener datos de parada, devuelve una lista de Strings en orden con los valores
         List<String> textoValores = new ArrayList<>();
         boolean oneView = false;
-        Elements todo = getDocSiamAvdaGalicia().getAllElements();
+        Elements todo = getDoc().getAllElements();
         for (Element span : todo) {
             if (span != null && oneView == false) {
                 try {  // nombre y numero de la parada

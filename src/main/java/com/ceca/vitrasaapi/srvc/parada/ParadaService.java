@@ -24,7 +24,4 @@ public class ParadaService {
         parada.setMinutosRestantes(Integer.valueOf(textoValores.get(5)));
         return parada;
     }
-
-
-
 }

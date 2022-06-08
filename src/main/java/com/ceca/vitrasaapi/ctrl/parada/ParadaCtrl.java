@@ -21,7 +21,5 @@ public class ParadaCtrl {
                 .status(HttpStatus.OK)
                 .body(paradaService.crearParadaObject());
     }
-
-
 }
 

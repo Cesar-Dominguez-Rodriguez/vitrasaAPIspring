@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Scrapper {
@@ -29,16 +30,16 @@ public class Scrapper {
         boolean oneView = false;
         Elements todo = getDoc().getAllElements();
         for (Element span : todo) {
-            if (span != null && oneView == false) {
+            if (span != null && !oneView) {
                 try {  // nombre y numero de la parada
-                    String nombreParada = span.getElementById("lblNombre").text();
+                    String nombreParada = Objects.requireNonNull(span.getElementById("lblNombre")).text();
                     textoValores.add(nombreParada.substring(0, 16));
                     textoValores.add(nombreParada.substring(18));
                 } catch (NullPointerException NuEx) {
                     System.out.println("ScrapperClass-getParadaData: Error al recuperar nombre de la parada");
                 }
                 try {   // Cadena de hora (prescindible)
-                    String horaCadena = span.getElementById("lblHora").text();
+                    String horaCadena = Objects.requireNonNull(span.getElementById("lblHora")).text();
                     textoValores.add(horaCadena.substring(6, 8));
                     textoValores.add(horaCadena.substring(9, 11));
                     System.out.println("Comprobacion hora --> "+textoValores.toString());
